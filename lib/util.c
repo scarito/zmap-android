@@ -245,14 +245,15 @@ int set_cpu(uint32_t core)
 
 int set_cpu(uint32_t core)
 {
-	cpu_set_t cpuset;
-	CPU_ZERO(&cpuset);
-	CPU_SET(core, &cpuset);
+  // Removing CPU set affinity for android
+	/* cpu_set_t cpuset; */
+	/* CPU_ZERO(&cpuset); */
+	/* CPU_SET(core, &cpuset); */
 
-	if (pthread_setaffinity_np(pthread_self(),
-				sizeof(cpu_set_t), &cpuset) != 0) {
-		return EXIT_FAILURE;
-	}
+	/* if (pthread_setaffinity_np(pthread_self(), */
+	/* 			sizeof(cpu_set_t), &cpuset) != 0) { */
+	/* 	return EXIT_FAILURE; */
+	/* } */
 	return EXIT_SUCCESS;
 }
 
