@@ -37,6 +37,8 @@ static const char *log_level_name[] = {
 
 #define COLOR(x) do { if(color) fprintf(log_output_stream, "%s", x); } while (0)
 
+#define LOG_MAKEPRI(fac, pri)  (((fac) << 3) | (pri))
+
 static const char* color_for_level(enum LogLevel level)
 {
 	switch(level) {
