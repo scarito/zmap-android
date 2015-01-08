@@ -23,3 +23,21 @@ under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 CONDITIONS OF ANY KIND, either express or implied. See LICENSE for the specific
 language governing permissions and limitations under the License.
 
+--
+
+This fork of ZMap has been modified to compile and run on Android
+devices. Changes include:
+ - getifaddrs implementation from https://github.com/kmackay/android-ifaddrs
+ - BSD-style tcp.h definition of tcphdr struct
+
+To use this fork, install the Android NDK, and follow the instructions from
+http://www.kandroid.org/ndk/docs/STANDALONE-TOOLCHAIN.html to set up a
+toolchain.  Make sure the toolchain is in your path and the CC environment
+variable is set correctly.  Compile the dependencies:
+ - libpcap, using `./configure --host=arm-linux-androideabi --with-pcap=linux`
+ - libgmp, using `./configure --host=arm-linux-androideabi`
+ - libjson, after changing the CC in the Makefile to arm-linux-androideabi-gcc
+Install these dependencies to your toolchain sysroot using `make install
+DESTDIR=$TOOLCHAIN/sysroot/`.  To build zmap you can now use cmake with the PATH
+and CC variables set and it will invoke the toolchain.
+
