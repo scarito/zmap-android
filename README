@@ -25,7 +25,7 @@ language governing permissions and limitations under the License.
 
 --
 
-This fork of ZMap has been modified to compile and run on Android
+This fork of ZMap has been modified to compile for and run on Android
 devices. Changes include:
  - getifaddrs implementation from https://github.com/kmackay/android-ifaddrs
  - BSD-style tcp.h definition of tcphdr struct
@@ -36,8 +36,16 @@ toolchain.  Make sure the toolchain is in your path and the CC environment
 variable is set correctly.  Compile the dependencies:
  - libpcap, using `./configure --host=arm-linux-androideabi --with-pcap=linux`
  - libgmp, using `./configure --host=arm-linux-androideabi`
- - libjson, after changing the CC in the Makefile to arm-linux-androideabi-gcc
 Install these dependencies to your toolchain sysroot using `make install
 DESTDIR=$TOOLCHAIN/sysroot/`.  To build zmap you can now use cmake with the PATH
-and CC variables set and it will invoke the toolchain.
+and CC variables set and it will invoke the toolchain.  It may be necessary to
+copy library files from sysroot/local/lib to sysroot/lib for them to be located
+by the compiler.  Finally, you will need to install these libraries on
+your Android device or bring them along with zmap and set LD_LIBRARY_PATH
+accordingly.
 
+Known issues:
+- ztee currently does not build due to the lack of get_line in android
+- Support for optional zmap features such as redis integration has not been
+investigated
+- json support is not currently enabled
